@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Cat Breeds</string>
+    <string name="learn_more">Learn More</string>
+    <string name="origin">Origin : %s</string>
+    <string name="life_span">Lifespan: %s</string>
+    <string name="description">Description</string>
+    <string name="alternate_names">Alternate names: %s</string>
+    <string name="weight">Average Weight: %s kg</string>
+    <string name="temperament">Temperament</string>
 </resources>

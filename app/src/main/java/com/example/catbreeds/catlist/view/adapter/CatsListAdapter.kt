@@ -2,17 +2,22 @@ package com.example.catbreeds.catlist.view.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.catbreeds.R
 import com.example.catbreeds.models.CatsBreed
+import javax.inject.Inject
 
-class CatsListAdapter : RecyclerView.Adapter<CatsViewHolder>() {
+class CatsListAdapter @Inject constructor() : ListAdapter<CatsBreed, CatsViewHolder>(diffCallback) {
 
-    var cats: List<CatsBreed> = emptyList()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
+    private val _onItemClickLiveData: MutableLiveData<CatsBreed> = MutableLiveData()
+
+    val onItemClickLiveData: LiveData<CatsBreed>
+        get() = _onItemClickLiveData
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CatsViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -21,9 +26,23 @@ class CatsListAdapter : RecyclerView.Adapter<CatsViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: CatsViewHolder, position: Int) {
-        holder.bind(cats[position])
+        holder.bind(getItem(position), _onItemClickLiveData)
     }
 
-    override fun getItemCount() = cats.size
+    companion object {
+        val diffCallback = object : DiffUtil.ItemCallback<CatsBreed>() {
+
+            override fun areItemsTheSame(oldItem: CatsBreed, newItem: CatsBreed): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areContentsTheSame(
+                oldItem: CatsBreed,
+                newItem: CatsBreed
+            ): Boolean {
+                return oldItem == newItem
+            }
+        }
+    }
 
 }
