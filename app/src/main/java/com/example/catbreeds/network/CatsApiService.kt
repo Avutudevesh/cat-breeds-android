@@ -8,8 +8,8 @@ interface CatsApiService {
 
     @GET("/v1/breeds")
     suspend fun getCatsList(
-        @Query("page") page: Int,
-        @Query("limit") limit: Int = 20
+        @Query("page") page: Int = 0,
+        @Query("limit") limit: Int = 60
     ): List<CatsBreed>
 
 }

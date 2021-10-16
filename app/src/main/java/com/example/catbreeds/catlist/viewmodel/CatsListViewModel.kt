@@ -8,7 +8,7 @@ abstract class CatsListViewModel : ViewModel() {
 
     sealed class Result {
         object Loading : Result()
-        data class Success(val cats: List<CatsBreed>) : Result()
+        data class Success(val cats: List<Breed>) : Result()
         object Empty : Result()
         object Error : Result()
         object PageLoading : Result()

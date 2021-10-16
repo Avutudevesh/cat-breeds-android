@@ -21,9 +21,9 @@ class CatsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         cat?.let {
             catName.text = cat.name
             catImage.loadImage(cat.image?.url.orEmpty(), itemView.context)
-            cat.alt_names?.let {
-                altName.text = itemView.context.getString(R.string.alternate_names, it)
-            } ?: kotlin.run {
+            if(!cat.alt_names.isNullOrBlank()){
+                altName.text = itemView.context.getString(R.string.alternate_names, it.alt_names)
+            } else {
                 altName.visibility = View.GONE
             }
             cat.weight.metric?.let {

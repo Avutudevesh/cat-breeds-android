@@ -44,20 +44,22 @@ class CatBreedDetailsFragment : Fragment(R.layout.cat_details_fragment) {
 
     private fun setUpDetailsPage() {
         catBreed?.let {
-            binding.catDescription.text = it.description
-            binding.catLifespan.text = getString(R.string.life_span, it.life_span)
-            binding.catOrigin.text = getString(R.string.origin, it.origin)
-            binding.catName.text = it.name
-            binding.catImage.loadImage(catBreed?.image?.url.orEmpty(), requireContext())
-            binding.alternateNames.text = getString(R.string.alternate_names, it.alt_names)
-            binding.catWeight.text = getString(R.string.weight, it.weight.metric)
-            binding.catTemperament.text = it.temperament
-            it.wikipedia_url?.let { url ->
-                binding.learnMoreLayout.setOnClickListener {
-                    openUrl(url)
+            binding.apply {
+                catDescription.text = it.description
+                catLifespan.text = getString(R.string.life_span, it.life_span)
+                catOrigin.text = getString(R.string.origin, it.origin)
+                catName.text = it.name
+                catImage.loadImage(catBreed?.image?.url.orEmpty(), requireContext())
+                alternateNames.text = getString(R.string.alternate_names, it.alt_names)
+                catWeight.text = getString(R.string.weight, it.weight.metric)
+                catTemperament.text = it.temperament
+                it.wikipedia_url?.let { url ->
+                    learnMoreLayout.setOnClickListener {
+                        openUrl(url)
+                    }
+                } ?: kotlin.run {
+                    learnMoreLayout.visibility = View.GONE
                 }
-            } ?: kotlin.run {
-                binding.learnMoreLayout.visibility = View.GONE
             }
 
         }
